@@ -1,0 +1,285 @@
+{% load static %}
+html::-webkit-scrollbar { width: 0; }
+*{padding: 0;margin: 0;border: 0;}
+*,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a,a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+body{
+    background-image: url(../images/logotext2.png);
+    background-color: orange;
+}
+nav{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: space-between;
+    background-color: darkorange;
+    position: fixed;
+    padding: 10px;
+    text-align: center;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+.part1{
+    display: flex;
+    text-align: center;
+    color: green;
+}
+.part1 a{
+    color: green;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 25px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+.steamlogo{
+    width: 50px;
+    height: 50px;
+}
+.part2{
+    display: flex;
+    text-align: center;
+    color: green;
+    padding: 10px;
+}
+.logthrought{
+    display: flex;
+    text-align: center;
+    font-size: 30px;
+    color: green;
+}
+.logon{
+    display: flex;
+    flex-direction: column;
+    color: green;
+    border-left: 1px solid green;;
+}
+.logon a{
+    height: 50%;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    color: green;
+}
+.ffffff{
+    color: green;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    font-size: 30px;
+}
+.toppart{
+    display: flex;
+    width: 100%;
+    height: 200px;
+    background-color: darkorange;
+    justify-content: space-between;
+    padding: 70px 120px 70px 120px;
+    text-align: center;
+    color: green;
+}
+.downpart{
+    display: flex;
+    padding: 30px 60px 60px 60px;
+    justify-content: space-between;
+}
+footer{
+    background-color: orange;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.logoimg{
+    width: 200px;
+    height: 200px;
+}
+.logoimg{
+    width: 150px;
+    height: 150px;
+}
+.ft2{
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 5px;
+    color: green;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+.ft21{
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 200px;
+    word-wrap: break-word;
+    color: green;
+}
+.ft2 a{
+    text-decoration: none;
+    color: green;
+    border-left: 1px solid green;
+    padding-left: 15px;
+    margin-left: -5px;
+}
+.ft2 a:hover{
+    color: yellow;
+    border-left: 1px solid yellow;
+}
+.content{
+    min-height: 260px;
+    width: 98%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+a:hover{
+    color: yellow;
+}
+.messages{
+    border: 1px solid green;
+    width: 25%;
+    background-color: greenyellow;
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+    word-wrap: break-word;
+    position: fixed;
+    color: green;
+    border-radius: 50px;
+    left: 10px;
+    bottom: 50px;
+    animation: burnInner2 10s linear;
+    opacity: 0;
+    visibility: hidden;
+}
+.messages p{
+    border-bottom: 1px solid green;
+    animation: burnInner3 9.6s linear;
+    margin-bottom: 15px;
+    width: 0;
+}
+@keyframes burnInner2 {
+    0%{
+        opacity: 1;
+        visibility: visible;
+    }
+    90%{
+        opacity: 1;
+        visibility: visible;
+    }
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@keyframes burnInner3 {
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0;
+    }
+}
+.livelentas{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    background-color: orange;
+    overflow: hidden;
+    padding: 5px;
+}
+.livelentas img{
+    height: 90px;
+    z-index: 2;
+    margin-left: 5px;
+}
+.livelentas p:first-child{
+    font-size: 40px;
+    margin: 25px;
+    color: green;
+    z-index: 1;
+}
+.livelentas p{
+    z-index: 10;
+    position: relative;
+}
+.livelentas img:hover .livetext{
+    display: block;
+    position: absolute;
+    z-index: 10;
+}
+.profileuser{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid green;
+    text-align: center;
+    color: green;
+    border-radius: 20px;
+    width: 400px;
+    font-size: 20px;
+}
+.prup{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    height: 50%;
+    padding: 5px;
+    color: green;
+}
+.prup img{
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+.prdowm{
+    display: flex;
+    justify-content: space-between;
+    height: 50%;
+    padding: 5px;
+    text-align: center;
+    color: green;
+}
+.nick{
+    display: block;
+    width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 15%;
+    color: green;
+    height: 24px;
+}
+.prup a{
+    color: green;
+}
+.prdowm a{
+    color: green;
+}
+.prup a:hover{
+    color: yellow;
+}
+.prdowm a:hover{
+    color: yellow;
+}
+.live{
+    display: block;
+    background-color: orange;
+    border-right: 1px solid green;
+    padding: 35px 10px 35px 10px;
+}
+span{
+    font-size: 30px;
+    color: green;
+}

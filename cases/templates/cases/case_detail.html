@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block css %}
+    <link href="{% static 'css/case_detail.css' %}" rel="stylesheet">
+{% endblock %}
+{% block title %}
+    {{ case.name }}
+{% endblock %}
+{% block content %}
+    {% if case.cases_items.all %}
+    <p style="text-align: center;margin-top: 50px;margin-bottom: 30px;font-size: 50px;color: green;">{{ case.name }}</p>
+    <div class="placekr">
+            {% for el in case.cases_items.all %}
+                <div class="stenditm"  id="qweqw">
+                    <img style="height: 160px;width: 160px" src="{{ el.item_image.url }}" alt="{{ el.name }}">
+                    <p class="qweqweqweqwewqeqwe">{{ el.name }}</p>
+                </div>
+            {% endfor %}
+    </div>
+    <button id="spin">Открыть <span id="caseprice">{{ case.price }}</span> ₽</button>
+    <div class="vl"></div>
+    <p style="text-align: center;color: green;font-size: 50px;margin-bottom: 30px">Содержимое кейса</p>
+    <div id="sdr" class="soderzimoe">
+        {% for el in case.cases_items.all %}
+            <div class="item">
+                <p class="priceitmn" style="font-weight: bold;display: block;background-color: orange;width: 160px">{{ el.price }} ₽</p>
+                <img src="{{ el.item_image.url }}" alt="#">
+                <p class="priceitmn1" style="font-weight: bold;display: block;background-color: orange;width: 160px">{{ el.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="popup1" class="popuperror">
+        <p>Недостаточно средств для открытия кейса!</p>
+        <p style="border-bottom: 1px solid green;" id="line"></p>
+    </div>
+    <div id="popup" class="popuperror">
+        <p>Дождитесь открытия кейса!</p>
+         <p style="border-bottom: 1px solid green;" id="line1"></p>
+    </div>
+    <div onclick="a()" id="popuper1" class="itempopup">
+    </div>
+    <div id="popuper" class="realitempopup">
+        <div style="display: flex;justify-content: space-between;padding: 0 12.5% 0 12.5%">
+            <p id="nazv">Назавание</p>
+            <p id="cen" style="margin-left: 100px">Цена</p>
+        </div>
+        <img id="imaga" class="img1" src="{% static 'images/firew.png' %}" alt="#">
+        <div style="display: flex;text-align: center;margin-top: 50px;justify-content: space-between;padding: 0 15% 0 15%">
+            <input onclick="b()" type="submit" class="btn1" value="Продать">
+            <input onclick="a()" type="submit" class="btn2" value="Еще раз">
+        </div>
+    </div>
+    <input type="hidden" placeholder="{{ csrf_token }}" id="sadqasd" value="{{ csrf_token }}">
+<script>
+         var f = $('#sadqasd').val();
+
+            var cardList 	= $('.placekr').first(),
+            cards 		= $('.stenditm'),
+            speed 		= 1,
+            width 		= 100,
+            randomize 	= true,
+                states = true,
+            distance 	= 20 * width
+        ;
+        for (var i = 0; i < 50; i++) {
+            cards.clone().appendTo(cardList);
+        }
+
+        function spin() {
+             $.ajax({
+
+                url: "/contract/",
+                method: "POST",
+                data: {csrfmiddlewaretoken:f,id: {{case.id}} },
+                success: function(data) {
+                    var itemi = '{% for el in case.cases_items.all %}{{ el }},{% endfor %}';
+                    itemi = itemi.split(',');
+                    itemi.pop();
+                    var f = itemi.length;
+                    if (f===4){
+                        var c = f - 2;
+                    }else if (f>4) {
+                        var c = f - 3;
+                    }else if (f===3){
+                        var c = 1;
+                    } else if (f===2){
+                        var c = -1;
+                    }
+                    var width = document.getElementById('qweqw').offsetWidth;
+                    //alert(width)
+                    var e = -(width) * (c+1);
+                    var ind  = data['ind'];
+                    var margintoel = e - (ind * width);
+                    //alert(margin)
+                    margin = margintoel -((itemi.length+1) * 2000);
+                    cards.first().animate({
+                        marginLeft: margin
+                    }, 7500, ()=>{
+                        setTimeout(()=>{
+                            document.getElementById('popuper').style.display = 'block';
+                            document.getElementById('popuper1').style.display = 'block';
+                            document.getElementById('nazv').innerHTML =data['name'];
+                            document.getElementById('cen').innerHTML = data['price'];
+                            document.getElementById('imaga').src = data['img'];
+                        }, 1000);
+                    });
+                }
+                     });
+             var itemi = [];
+        }
+
+        $('#spin').click(function() {
+            var balance = document.getElementById('balance').textContent;
+            var price = document.getElementById('caseprice').textContent;
+            var realbalance = Number.parseInt(balance)
+            var realprice = Number.parseInt(price)
+            if (states === false) {
+                document.getElementById('popup').style.display = 'block';
+            } else if (realprice > realbalance) {
+                document.getElementById('popup1').style.display = 'block';
+            }
+            else {
+                cards.first().css('margin-left', 0);
+                setTimeout(spin,0);
+                return false;
+            }
+        });
+
+        var circle = document.getElementById('line');
+        circle.addEventListener("animationend", function() {document.getElementById('popup1').style.display = 'none';});
+
+         var circle1 = document.getElementById('line1');
+        circle1.addEventListener("animationend", function() {document.getElementById('popup').style.display = 'none';});
+
+        function a() {
+            document.location.reload(true);
+        }
+        function b() {
+            var  e = document.getElementById('nazv').textContent;
+            $.ajax({
+                url: "/addbalance/",
+                method: "POST",
+                data: {csrfmiddlewaretoken: f, name: e},
+                success: function (data) {
+                    document.location.reload(true);
+                }
+            });
+        }
+        var uhaaaaa = document.getElementById("sdr").childElementCount;
+        if (uhaaaaa===1){
+            document.getElementById('cantent').innerHTML = '<p style="font-size: 100px;text-align: center;color: green">В кейсе закончились предметы!</p>'
+        }
+</script>
+    {% else %}
+        <p style="font-size: 100px;text-align: center;color: green">В кейсе закончились предметы!</p>
+    {% endif %}
+{% endblock %}

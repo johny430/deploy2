@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+     <link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div style="text-align: center;font-size: 25px;color: green;font-weight: bold;margin-bottom: 50px">
+        <form method="post">
+            {% csrf_token %}
+            <p>Вход</p>
+            <input type="text" placeholder="Логин" name="username"><br>
+            <input type="password" placeholder="Пароль" name="password"><br>
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}
+{% block title %}
+    Вход
+{% endblock %}

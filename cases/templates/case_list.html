@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tag %}
+{% block css %}
+<link href="{% static 'css/case_list.css' %}" rel="stylesheet">
+{% endblock %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="weareopen">
+        <img src="{% static 'images/firew.png' %}" alt="#">
+        <p>Мы открылись!</p>
+    </div>
+    {% for el in all.category %}
+        <div class="ctg">
+            <div class="ctghead">
+                <img class="" src="{{ el.image.url }}" alt="#">
+                <p>{{ el.name }}</p>
+            </div>
+            <div class="cases">
+                {% for item in el.cases.all %}
+                    <div class="case">
+                        <a href="{{ item.get_absolute_url }}">Осталось {{ item.getamount }}</a>
+                        <a href="case/{{ item.url }}"><img src="{{ item.case_image.url }}" alt="#"></a>
+                        <a href="case/{{ item.url }}">{{ item.name }}</a>
+                        <a href="case/{{ item.url }}">{{ item.price }} ₽</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

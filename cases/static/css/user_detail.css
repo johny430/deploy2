@@ -1,0 +1,98 @@
+.passport{
+    width: 75%;
+    margin: 0 auto;
+    background-color: darkorange;
+    padding: 50px;
+    display: flex;
+    height: 300px;
+}
+.infa{
+    margin-left: 50px;
+    background-color: yellow;
+    width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.itemi{
+    width: 75%;
+    margin: 0 auto;
+    background-color: darkorange;
+    text-align: center;
+    padding: 50px;
+    margin-bottom: 50px;
+    font-size: 30px;
+    color: green;
+    display: flex;
+}
+.your{
+    font-size: 40px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: green;
+}
+.ava{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    color: green;
+}
+.ava form{
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50%;
+}
+.infa{
+    font-size: 20px;
+    color: green;
+    padding: 15px;
+}
+.changen{
+    font-size: 10px;
+    color: blue;
+}
+.changen:hover{
+    color: green;
+}
+.newnick{
+    display: none;
+}
+.addava{
+    color: green;
+    background-color: yellow;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 10px;
+}
+.addava input{
+    color: green;
+    background-color: orange;
+}
+.subn{
+    border-top: 1px solid green;
+}
+.avatarka{
+    height: 200px;
+    width: 200px;
+}
+.itemi div{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.itemi{
+    width: 75%;
+    margin: 0 auto;
+    background-color: darkorange;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 30px;
+    color: green;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}

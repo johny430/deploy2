@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+    Мой профиль
+{% endblock %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/me.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="passport">
+        <div class="ava">
+        {% if user.user_info.avatar %}
+            <img  class="avatarka" src="{{ user.user_info.avatar.url }}" alt="#">
+        {% else %}
+            <p>У вас пока нет аватарки, самое время ее добавить!</p>
+            <form method="post" style="color: green" class="addava" enctype="multipart/form-data">
+                 {% csrf_token %}
+                <input class="file" type="file" name="ava" formenctype="multipart/form-data">
+                 <input type="submit" class="subn">
+            </form>
+        {% endif %}
+        </div>
+        <div class="infa">
+            <p>Ваш логин: {{ user.username }} <a href="#" onclick="popup()" class="changen">Изменить</a></p>
+            <p>Баланс: {{ user.user_info.balance }} </p>
+            <form method="post" class="newnick" id="p2">
+                {% csrf_token %}
+                <label>Введите новый никнейм: </label><input  style="background-color: yellowgreen;color: green" type="text" value="{{ user.username }}" name="username"><br>
+                <input type="submit" style="background-color: yellowgreen;color: green">
+            </form>
+        </div>
+    </div>
+        <p class="your">Ваши предметы:</p>
+    <div class="itemi" style="display: flex">
+    {% if request.user.user_info.user_items.all %}
+    {% for el in request.user.user_info.user_items.all %}
+        <div>
+            <p>{{ el.name }}</p>
+            <img src="{{ el.item_image.url }}" alt="#">
+        </div>
+    {% endfor %}
+    {% else %}
+        <p>Вещей нет!</p>
+    {% endif %}
+    </div>
+    <script>
+        function popup() {
+            document.getElementById("p2").style.display = "block"
+        }
+    </script>
+{% endblock %}

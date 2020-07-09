@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/contract.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div style="text-align: center;font-size: 25px;color: green;font-weight: bold;margin-bottom: 50px">
+        Контракты пока не доступны, но если вы закажите сайт , то будут.<br>
+        <a href="{% url 'contacts' %}" style="margin-top: 50px;color: green;text-align: center">Заказать сайт и бота(ов)</a>
+    </div>
+{% endblock %}
+{% block title %}
+    Контракты
+{% endblock %}

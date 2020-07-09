@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ user.username }}
+{% endblock %}
+{% block css %}
+    <link href="{% static 'css/user_detail.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="passport">
+        <div class="ava">
+            {% if user.user_info.avatar %}
+                <img class="avatarka" src="{{ user.user_info.avatar.url }}">
+            {% else %}
+                <p>У пользователя нет аватарки!</p>
+            {% endif %}
+        </div>
+        <div class="infa">
+            <p>Логин: {{ user.username }}</p>
+            <p>Баланс: {{ user.user_info.balance }} </p>
+        </div>
+    </div>
+        <p class="your">Предметы:</p>
+    <div class="itemi">
+    {% if user.user_info.user_items.all %}
+    {% for el in user.user_info.user_items.all %}
+        <div>
+            <p>{{ el.name }}</p>
+            <img src="{{ el.item_image.url }}">
+        </div>
+    {% endfor %}
+    {% else %}
+        <p>Вещей нет!</p>
+    {% endif %}
+    </div>
+{% endblock %}

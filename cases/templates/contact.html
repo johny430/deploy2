@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    Связаться с автором
+{% endblock %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/contact.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div style="text-align: center;font-size: 25px;color: green;font-weight: bold;margin-bottom: 50px">
+        <form method="post">
+            {% csrf_token %}
+            <p>Связаться с автором</p>
+            <input type="text" placeholder="Тема сообщения" name="subject"><br>
+            <input type="text" placeholder="Текст сообщения" name="message"><br>
+            <input type="email" placeholder="Ваш email" name="from_email"><br>
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% load static %}
+{% load tag %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% block css %}{% endblock %}
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <title>{% block title %}Главная{% endblock %}</title>
+</head>
+<body style='overflow-x:hidden;'>
+    <nav>
+        <div class="part1">
+            <img class="logo1" src="{% static 'images/logotext2.png' %}" alt="#">
+            <a href="{% url 'lol' %}">Главная</a>
+            <a href="{% url 'about' %}">О нас</a>
+            <a href="{% url 'caseout' %}">Вывести кейсы</a>
+            <a href="{% url 'addbalance' %}">Пополнить баланс</a>
+            <a href="{% url 'contract' %}">Контракты</a>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="profileuser">
+                <div class="prup">
+                    {% if request.user.user_info.avatar %}
+                    <a href="{% url 'me' %}"><img src="{{ request.user.user_info.avatar.url }}" alt="asdad"></a>
+                    {% endif %}
+                    <a href="{% url 'me' %}" class="nick" style="text-align: left">{{ request.user.username }}</a>
+                    <a href="{% url 'me' %}">Мой профиль</a>
+                    <a href="{% url 'logout' %}" style="color: red">Выйти</a>
+                </div>
+                <div class="prdowm" style="background-color: orange;width: 84%;margin-left: 16%;border-left: 1px green solid;border-radius: 20px;justify-content: space-between"><p style="margin-left: 25px" id="balance">{{ user.user_info.balance }}</p> <a href="{% url 'addbalance' %}">Пополнить баланс</a></div>
+            </div>
+        {% else %}
+        <div class="part2">
+            <div class="logthrought">
+                <p class="ffffff">Войти через:</p>
+                <a href="{% url 'loginsteam' %}"><img  class="steamlogo" src="{% static 'images/ssteam.png' %}" alt="#"></a>
+            </div>
+            <div class="logon">
+                <a href="{% url 'login' %}">Вход</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+            </div>
+        </div>
+        {% endif %}
+    </nav>
+    <div style="display: flex;margin-top: 100px;flex-direction: row;border-bottom: 1px solid green">
+        <p class="live"><span>Live</span></p>
+    <div class="livelentas">
+        {% get_cases as trades %}
+        {% for el in trades %}
+        <div>
+            <img src="{{ el.case_image.url }}" alt="qdasd">
+            <p class="livetext">{{ el.name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    <div class="content" id="cantent">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="messages" id="img">
+           {{ message }}
+        <p></p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <footer>
+        <div class="toppart">
+            <div>
+                <p style="font-size: 20px">КУПЛЕНО КЕЙСОВ</p>
+                <p style="font-size: 40px">21312310</p>
+            </div>
+            <div>
+                <p style="font-size: 20px">Пользователей</p>
+                <p style="font-size: 40px">1231231</p>
+            </div>
+            <div>
+                <p style="font-size: 20px">Онлайн</p>
+                <p style="font-size: 40px">1231231</p>
+            </div>
+            <div>
+                <p style="font-size: 20px">Топ скинов</p>
+                <p style="font-size: 40px">1231230</p>
+            </div>
+        </div>
+        <div class="downpart">
+            <img class='logoimg2' src="{% static 'images/logotext2.png' %}" alt="#">
+            <div class="ft2">
+                <a href="{% url 'livetrade' %}">Лайв-трейды ботов</a>
+                <a href="{% url 'contacts' %}">Контакты</a>
+                <a href="{% url 'agreement' %}">Соглашение</a>
+                <a href="{% url 'coockie' %}">Политика cookies</a>
+                <a href="{% url 'faq' %}">FAQ</a>
+            </div>
+            <img class='logoimg2' src="{% static 'images/weaccpt.png' %}" alt="#">
+            <div class="ft21">
+                <p>
+                    Тут должна быть ссылка на то,где можно заказать такой же сайт!
+                </p>
+            </div>
+        </div>
+        <input type="hidden" placeholder="{{ csrf_token }}" id="sadqasd" value="{{ csrf_token }}">
+    </footer>
+    <script src="http://twitter.github.com/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>
+<script>
+    var f = $('#sadqasd').val();
+    setInterval(()=>{
+        $.ajax({
+        url: "/about/",
+       	method: "POST",
+    	data: {csrfmiddlewaretoken:f},
+       	success: function(data) {
+            render(data);
+            }
+        })
+        ;}, 5000)
+
+
+function render(data) {
+    let template = Hogan.compile(html);
+    let output = template.render(data);
+
+    const div = document.querySelector('.livelentas');
+    div.innerHTML = output;
+}
+{% verbatim %}
+let html = '{{#casesse}}\
+    <div>\
+         <img src="/media/{{ case_image }}"" alt="qdasd">\
+              <p class="livetext">{{ name }}</p>\
+            </div>\
+    {{/casesse}}'
+{% endverbatim %}
+
+</script>
+</body>
+</html>
